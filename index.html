@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Santanu Soe | Academic Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0b1220;
+            --secondary: #19c3a3;
+            --secondary-dark: #14a98d;
+            --accent: #111a2e;
+            --light: #e6eefb;
+            --muted: #9fb0cc;
+            --radius: 8px;
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+            background: var(--primary);
+            color: var(--light);
+            line-height: 1.7;
+            display: flex;
+            min-height: 100vh;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        h1 { font-size: 3rem; }
+        h2 { font-size: 2.2rem; }
+        h3 { font-size: 1.6rem; }
+        h4 { font-size: 1.2rem; }
+
+        p {
+            margin-bottom: 1.2rem;
+            color: var(--muted);
+        }
+
+        /* Navigation */
+        .sidebar {
+            width: 300px;
+            background: var(--accent);
+            border-right: 1px solid rgba(255,255,255,0.09);
+            padding: 30px 0;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+            height: 100vh;
+            position: fixed;
+            z-index: 100;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .profile-card {
+            text-align: center;
+            padding: 0 30px 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.09);
+            margin-bottom: 20px;
+        }
+
+        .profile-pic {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 4px solid var(--secondary);
+            margin: 0 auto 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            transition: var(--transition);
+        }
+
+        .profile-pic:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: white;
+            letter-spacing: 0.5px;
+        }
+
+        .title {
+            color: var(--secondary);
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .nav-links {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 20px;
+        }
+
+        .nav-links ul {
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-bottom: 8px;
+        }
+
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            padding: 14px 20px;
+            color: var(--muted);
+            text-decoration: none;
+            border-radius: var(--radius);
+            transition: var(--transition);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background: rgba(25,195,163,0.15);
+            color: var(--secondary);
+            transform: translateX(5px);
+        }
+
+        .nav-links i {
+            width: 24px;
+            margin-right: 15px;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 25px 20px;
+            border-top: 1px solid rgba(255,255,255,0.09);
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light);
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--secondary);
+            color: #06271f;
+            transform: translateY(-5px);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 300px;
+            height: 100vh;
+            overflow-y: auto;
+            position: relative;
+            background: linear-gradient(135deg, rgba(11,18,32,0.95), rgba(11,18,32,0.98)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23111a2e"/><path d="M0 50 L100 50 M50 0 L50 100" stroke="%230b1220" stroke-width="1"/></svg>');
+        }
+
+        .section {
+            min-height: 100vh;
+            padding: 80px 50px;
+            display: none;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .section-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            color: var(--light);
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 70px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            color: var(--muted);
+            margin-bottom: 40px;
+            max-width: 700px;
+            font-size: 1.1rem;
+        }
+
+        /* Home Section */
+        .home-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+        }
+        
+        .academic-title {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+        
+        .home-content h1 {
+            margin-top: 10px;
+            margin-bottom: 30px;
+            background: linear-gradient(90deg, #e6eefb, #19c3a3);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.1;
+        }
+        
+        .intro-text {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-bottom: 40px;
+            color: var(--muted);
+            line-height: 1.8;
+        }
+        
+        .highlight {
+            color: var(--light);
+            font-weight: 500;
+        }
+        
+        .research-focus {
+            display: flex;
+            gap: 30px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+        
+        .research-area {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: var(--radius);
+            padding: 30px;
+            transition: var(--transition);
+        }
+        
+        .research-area:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            border-color: var(--secondary);
+        }
+        
+        .research-area h3 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .research-area h3 i {
+            font-size: 1.5rem;
+        }
+
+        /* Research Section */
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .research-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: var(--radius);
+            padding: 35px;
+            transition: var(--transition);
+            height: 100%;
+        }
+
+        .research-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            border-color: var(--secondary);
+        }
+
+        .research-card h3 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .tag {
+            background: rgba(25,195,163,0.15);
+            color: var(--secondary);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Publications */
+        .publication-list {
+            display: grid;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .publication-item {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.09);
+            border-left: 4px solid var(--secondary);
+            border-radius: var(--radius);
+            padding: 30px;
+            transition: var(--transition);
+        }
+
+        .publication-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .pub-title {
+            font-weight: 700;
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+            color: var(--light);
+        }
+
+        .pub-authors {
+            color: var(--muted);
+            font-style: italic;
+            margin-bottom: 18px;
+        }
+
+        .pub-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            background: rgba(25,195,163,0.15);
+            color: var(--secondary);
+        }
+
+        /* Conferences & Seminars */
+        .events-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .event-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: var(--radius);
+            padding: 30px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .event-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--secondary);
+        }
+
+        .event-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+        }
+
+        .event-date {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .event-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--light);
+        }
+
+        .event-location {
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .event-description {
+            margin-bottom: 20px;
+        }
+
+        .event-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        /* Materials Section */
+        .materials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .material-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: var(--radius);
+            padding: 30px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .material-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+            border-color: var(--secondary);
+        }
+
+        .material-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(25,195,163,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+        }
+
+        .material-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--light);
+        }
+
+        .material-description {
+            margin-bottom: 25px;
+            color: var(--muted);
+        }
+
+        /* Education */
+        .education-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .education-item {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: var(--radius);
+            padding: 35px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .education-item::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--secondary);
+        }
+
+        .edu-title {
+            font-weight: 700;
+            margin-bottom: 12px;
+            font-size: 1.3rem;
+            color: var(--light);
+        }
+
+        .edu-degree {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+
+        .edu-meta {
+            color: var(--muted);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .edu-grade {
+            display: inline-block;
+            padding: 8px 18px;
+            background: rgba(25,195,163,0.15);
+            border: 1px solid rgba(25,195,163,0.4);
+            border-radius: 30px;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .contact-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: rgba(25,195,163,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+
+        .contact-details h4 {
+            margin-bottom: 8px;
+            font-size: 1.2rem;
+            color: var(--light);
+        }
+
+        .contact-form {
+            display: grid;
+            gap: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--light);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 16px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: var(--radius);
+            color: var(--light);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(25,195,163,0.2);
+        }
+
+        textarea.form-control {
+            min-height: 180px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        .footer {
+            background: #0a1528;
+            padding: 30px 0;
+            margin-top: 50px;
+            border-top: 1px solid rgba(255,255,255,0.09);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 50px;
+            text-align: center;
+            color: var(--muted);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1100px) {
+            .sidebar {
+                width: 260px;
+            }
+            
+            .main-content {
+                margin-left: 260px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .sidebar {
+                width: 80px;
+                overflow: hidden;
+            }
+            
+            .sidebar:hover {
+                width: 260px;
+            }
+            
+            .profile-card, .social-links {
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+            
+            .sidebar:hover .profile-card,
+            .sidebar:hover .social-links {
+                opacity: 1;
+            }
+            
+            .main-content {
+                margin-left: 80px;
+            }
+            
+            .nav-links a span {
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+            
+            .sidebar:hover .nav-links a span {
+                opacity: 1;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 20px 0;
+            }
+            
+            .profile-card {
+                display: none;
+            }
+            
+            .nav-links {
+                overflow-x: auto;
+                padding: 0 15px;
+            }
+            
+            .nav-links ul {
+                display: flex;
+                gap: 5px;
+            }
+            
+            .nav-links li {
+                margin-bottom: 0;
+            }
+            
+            .nav-links a {
+                padding: 12px 15px;
+                flex-direction: column;
+                text-align: center;
+                font-size: 0.9rem;
+            }
+            
+            .nav-links i {
+                margin-right: 0;
+                margin-bottom: 5px;
+                font-size: 1.3rem;
+            }
+            
+            .social-links {
+                display: none;
+            }
+            
+            .main-content {
+                margin-left: 0;
+                height: auto;
+            }
+            
+            .section {
+                min-height: auto;
+                padding: 50px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Sidebar -->
+    <div class="sidebar">
+        <div class="profile-card">
+            <div class="profile-pic">
+                <img src="https://scholar.googleusercontent.com/citations?view_op=medium_photo&user=1xQZCtQAAAAJ&citpid=8" alt="Dr. Santanu Soe">
+            </div>
+            <div class="name">Santanu Soe</div>
+            <div class="title">Research Scholar</div>
+            <div class="subtitle">IIT Madras & University of Melbourne</div>
+        </div>
+        
+        <nav class="nav-links">
+            <ul>
+                <li>
+                    <a href="#home" class="active" data-target="home">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#about" data-target="about">
+                        <i class="fas fa-user"></i>
+                        <span>About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#research" data-target="research">
+                        <i class="fas fa-flask"></i>
+                        <span>Research</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#publications" data-target="publications">
+                        <i class="fas fa-book"></i>
+                        <span>Publications</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#conferences" data-target="conferences">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Conferences</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#materials" data-target="materials">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Materials</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#talks" data-target="talks">
+                        <i class="fas fa-microphone-alt"></i>
+                        <span>Talks</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#education" data-target="education">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Education</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#contact" data-target="contact">
+                        <i class="fas fa-envelope"></i>
+                        <span>Contact</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        
+        <div class="social-links">
+            <a href="#" title="Google Scholar"><i class="fab fa-google-scholar"></i></a>
+            <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="section-content">
+                <div class="home-content">
+                    <div class="academic-title">Research Scholar in Optimization & Imaging</div>
+                    <h1>Santanu Soe</h1>
+                    
+                    <div class="intro-text">
+                        <p>I am a <span class="highlight">Prime Minister's Research Fellow</span> and Joint PhD Scholar at <span class="highlight">IIT Madras</span> and the <span class="highlight">University of Melbourne</span>, specializing in mathematical optimization for imaging and machine learning.</p>
+                        
+                        <p>My research focuses on developing novel algorithms for solving complex optimization problems, with particular emphasis on <span class="highlight">operator splitting methods</span>, <span class="highlight">primal-dual algorithms</span>, and <span class="highlight">structured regularization techniques</span>.</p>
+                        
+                        <p>With a strong foundation in functional analysis and convex optimization, I create efficient computational methods that bridge theoretical mathematics with practical applications in medical imaging and large-scale data analysis.</p>
+                    </div>
+                    
+                    <div class="research-focus">
+                        <div class="research-area">
+                            <h3><i class="fas fa-project-diagram"></i> Optimization Algorithms</h3>
+                            <p>Developing efficient primal-dual methods with adaptive step-size rules and convergence guarantees for convex-concave saddle point problems.</p>
+                        </div>
+                        
+                        <div class="research-area">
+                            <h3><i class="fas fa-image"></i> Imaging Science</h3>
+                            <p>Applying advanced regularization techniques to solve ill-posed inverse problems in medical and scientific imaging.</p>
+                        </div>
+                        
+                        <div class="research-area">
+                            <h3><i class="fas fa-brain"></i> Machine Learning</h3>
+                            <p>Creating scalable optimization methods for large-scale machine learning problems with structured regularization.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section">
+            <div class="section-content">
+                <h2 class="section-title">About Me</h2>
+                <p class="section-subtitle">Research scholar specializing in convex/nonconvex optimization, monotone operator theory, and scalable first-order algorithms.</p>
+                
+                <div class="about-content">
+                    <p>I am a Prime Minister's Research Fellow and Joint PhD Scholar at IIT Madras and the University of Melbourne. My research focuses on developing efficient algorithms for optimization problems in imaging and machine learning.</p>
+                    <p>I specialize in primal-dual methods, operator splitting techniques, and structured regularization. My work aims to bridge theoretical foundations with practical applications in medical imaging and large-scale machine learning problems.</p>
+                    
+                    <h3 style="margin: 40px 0 20px; color: var(--secondary);">Research Interests</h3>
+                    <ul style="columns: 2; column-gap: 40px; margin-bottom: 30px;">
+                        <li style="margin-bottom: 12px;">Convex and nonconvex optimization</li>
+                        <li style="margin-bottom: 12px;">Monotone operator theory</li>
+                        <li style="margin-bottom: 12px;">Primal-dual algorithms</li>
+                        <li style="margin-bottom: 12px;">Operator splitting methods</li>
+                        <li style="margin-bottom: 12px;">Structured regularization for imaging</li>
+                        <li style="margin-bottom: 12px;">Large-scale machine learning optimization</li>
+                    </ul>
+                    
+                    <h3 style="margin: 40px 0 20px; color: var(--secondary);">Technical Expertise</h3>
+                    <div class="tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">MATLAB</span>
+                        <span class="tag">Optimization Algorithms</span>
+                        <span class="tag">Machine Learning</span>
+                        <span class="tag">Image Processing</span>
+                        <span class="tag">Data Analysis</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Research Section -->
+        <section id="research" class="section">
+            <div class="section-content">
+                <h2 class="section-title">Research Areas</h2>
+                <p class="section-subtitle">My research spans several areas of optimization theory with applications in imaging and machine learning.</p>
+                
+                <div class="research-grid">
+                    <div class="research-card">
+                        <h3>Primal-Dual & Splitting Algorithms</h3>
+                        <p>Developing and analyzing primal-dual algorithms including Golden Ratio Primal-Dual (GRPDA), Forward-Backward, and Condat-Vũ variants with adaptive step-size rules and convergence guarantees.</p>
+                        <div class="tags">
+                            <span class="tag">Operator Splitting</span>
+                            <span class="tag">Adaptive Steps</span>
+                            <span class="tag">Convergence Analysis</span>
+                        </div>
+                    </div>
+                    
+                    <div class="research-card">
+                        <h3>Imaging & Inverse Problems</h3>
+                        <p>Applying total variation (TV) models, robust losses (L1/Huber), and GraphNet regularization to solve denoising, deblurring, and inpainting problems in medical and scientific imaging.</p>
+                        <div class="tags">
+                            <span class="tag">TV / TGV</span>
+                            <span class="tag">GraphNet</span>
+                            <span class="tag">Robust Losses</span>
+                        </div>
+                    </div>
+                    
+                    <div class="research-card">
+                        <h3>Machine Learning Optimization</h3>
+                        <p>Solving sparse logistic regression and composite problems with efficient proximal operators for large-scale machine learning applications.</p>
+                        <div class="tags">
+                            <span class="tag">Composite Models</span>
+                            <span class="tag">Proximal Operators</span>
+                            <span class="tag">Large-scale Optimization</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Publications Section -->
+        <section id="publications" class="section">
+            <div class="section-content">
+                <h2 class="section-title">Publications</h2>
+                <p class="section-subtitle">Selected peer-reviewed publications and preprints.</p>
+                
+                <div class="publication-list">
+                    <div class="publication-item">
+                        <div class="pub-title">The Golden Ratio Primal‑Dual Algorithm with Two New Step‑size Rules for Convex‑Concave Saddle Point Problems</div>
+                        <div class="pub-authors">Santanu Soe, Matthew K. Tam, V. Vetrivel</div>
+                        <div class="badge">2025</div>
+                        <div class="pub-links">
+                            <a href="https://arxiv.org/abs/2502.17918" class="btn btn-outline" target="_blank">
+                                <i class="fas fa-external-link-alt"></i> arXiv
+                            </a>
+                            <a href="#" class="btn btn-outline">
+                                <i class="fas fa-file-pdf"></i> PDF
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="publication-item">
+                        <div class="pub-title">Weak Convergence of Projection Algorithm with Momentum Terms and New Step Size Rule for Quasimonotone Variational Inequalities</div>
+                        <div class="pub-authors">Santanu Soe, G. Kumar, V. Vetrivel</div>
+                        <div class="badge">2025</div>
+                        <div class="pub-links">
+                            <a href="https://arxiv.org/abs/2505.06170" class="btn btn-outline" target="_blank">
+                                <i class="fas fa-external-link-alt"></i> arXiv
+                            </a>
+                            <a href="#" class="btn btn-outline">
+                                <i class="fas fa-file-pdf"></i> PDF
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="publication-item">
+                        <div class="pub-title">On Some Forward‑Backward Method to Solve Monotone Inclusion Problems</div>
+                        <div class="pub-authors">Santanu Soe</div>
+                        <div class="badge">Under Preparation</div>
+                        <div class="pub-links">
+                            <a href="#" class="btn btn-outline">
+                                <i class="fas fa-file-alt"></i> Preprint
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conferences Section -->
+        <section id="conferences" class="section">
+            <div class="section-content">
+                <h2 class="section-title">Conferences & Seminars</h2>
+                <p class="section-subtitle">Academic conferences and seminars I've participated in.</p>
+                
+                <div class="events-container">
+                    <div class="event-card">
+                        <div class="event-date">
+                            <i class="fas fa-calendar"></i>
+                            Feb 10–14, 2025
+                        </div>
+                        <h3 class="event-title">Mathematics in Industry Study Group</h3>
+                        <div class="event-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Monash University, Australia
+                        </div>
+                        <p class="event-description">Participated in the industry-focused study group solving real-world optimization problems with mathematical approaches.</p>
+                        <div class="event-links">
+                            <a href="#" class="btn btn-outline">
+                                <i class="fas fa-link"></i> Event Website
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="event-card">
+                        <div class="event-date">
+                            <i class="fas fa-calendar"></i>
+                            May 20–26, 2024
+                        </div>
+                        <h3 class="event-title">Workshop on Linear Algebra through Data Science</h3>
+                        <div class="event-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            IMSC, Chennai
+                        </div>
+                        <p class="event-description">Attended workshops on applications of linear algebra in modern data science techniques and algorithms.</p>
+                        <div class="event-links">
+                            <a href="#" class="btn btn-outline">
+                                <i class="fas fa-link"></i> Event Website
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="event-card">
+                        <div class="event-date">
+                            <i class="fas fa-calendar"></i>
+                            Mar 18–21, 2024
+                        </div>
+                        <h3 class="event-title">Mini‑Course on Optimization Theory and Its Applications</h3>
+                        <div class="event-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            VIASM (Online)
+                        </div>
+                        <p class="event-description">Completed an intensive mini-course covering advanced optimization techniques and their practical applications.</p>
+                        <div class="event-links">
+                            <a href="#" class="btn btn-outline">
+                                <i class="fas fa-file-pdf"></i> Course Materials
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="event-card">
+                        <div class="event-date">
+                            <i class="fas fa-calendar"></i>
+                            Jul 3–7, 2023
+                        </div>
+                        <h3 class="event-title">Data Science: Probabilistic and Optimization Methods</h3>
+                        <div class="event-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            ICTS Bangalore
+                        </div>
+                        <p class="event-description">Participated in workshops and discussions on probabilistic methods and optimization in data science applications.</p>
+                        <div class="event-links">
+                            <a href="#" class="btn btn-outline">
+                                <i class="fas fa-link"></i> Event Website
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Materials Section -->
+        <section id="materials" class="section">
+            <div class="section-content">
+                <h2 class="section-title">Teaching Materials</h2>
+                <p class="section-subtitle">Educational resources, lecture notes, and course materials.</p>
+                
+                <div class="materials-grid">
+                    <div class="material-card">
+                        <div class="material-icon">
+                            <i class="fas fa-chalkboard"></i>
+                        </div>
+                        <h3 class="material-title">Functional Analysis</h3>
+                        <p class="material-description">Comprehensive lecture notes covering Banach spaces, Hilbert spaces, and operator theory with practical examples.</p>
+                        <div class="event-links">
+                            <a href="#" class="btn btn-outline">
+                                <i class="fas fa-download"></i> Download PDF
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="material-card">
+                        <div class="material-icon">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <h3 class="material-title">Optimization Methods</h3>
+                        <p class="material-description">Course materials on convex optimization, gradient descent methods, and constrained optimization techniques.</p>
+                        <div class="event-links">
+                            <a href="#" class="btn btn-outline">
+                                <i class="fas fa-download"></i> Download PDF
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="material-card">
+                        <div class="material-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <h3 class="material-title">Linear Algebra</h3>
+                        <p class="material-description">Lecture slides and problem sets for advanced linear algebra with applications in data science and machine learning.</p>
+                        <div class="event-links">
+                            <a href="#" class="btn btn-outline">
+                                <i class="fas fa-download"></i> Download ZIP
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="material-card">
+                        <div class="material-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 class="material-title">Probability & Statistics</h3>
+                        <p class="material-description">Complete course materials covering probability theory, statistical inference, and stochastic processes.</p>
+                        <div class="event-links">
+                            <a href="#" class="btn btn-outline">
+                                <i class="fas fa-download"></i> Download PDF
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Talks Section -->
+        <section id="talks" class="section">
+            <div class="section-content">
+                <h2 class="section-title">Talks & Presentations</h2>
+                <p class="section-subtitle">Invited talks, conference presentations, and departmental seminars.</p>
+                
+                <div class="events-container">
+                    <div class="event-card">
+                        <div class="event-date">
+                            <i class="fas fa-calendar"></i>
+                            2025 · Invited Talk
+                        </div>
+                        <h3 class="event-title">Forward–Reflected–Backward with Momentum</h3>
+                        <div class="event-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            International Conference on Optimization and Learning, Lisbon
+                        </div>
+                        <p class="event-description">Presented our latest research on accelerated optimization algorithms with momentum techniques.</p>
+                        <div class="event-links">
+                            <a href="#" class="btn btn-outline">
+                                <i class="fas fa-file-powerpoint"></i> Slides
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="event-card">
+                        <div class="event-date">
+                            <i class="fas fa-calendar"></i>
+                            2024 · Department Seminar
+                        </div>
+                        <h3 class="event-title">GraphNet Regularization in Imaging</h3>
+                        <div class="event-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Department of Mathematics, IIT Madras
+                        </div>
+                        <p class="event-description">Presented our work on applying GraphNet regularization techniques to medical imaging problems.</p>
+                        <div class="event-links">
+                            <a href="#" class="btn btn-outline">
+                                <i class="fas fa-file-powerpoint"></i> Slides
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="event-card">
+                        <div class="event-date">
+                            <i class="fas fa-calendar"></i>
+                            2024 · Workshop Presentation
+                        </div>
+                        <h3 class="event-title">Adaptive Step-sizes in Splitting Methods</h3>
+                        <div class="event-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Workshop on Optimization Theory, VIASM
+                        </div>
+                        <p class="event-description">Introduced a novel approach to adaptive step-size selection in operator splitting methods.</p>
+                        <div class="event-links">
+                            <a href="#" class="btn btn-outline">
+                                <i class="fas fa-file-pdf"></i> Paper
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="event-card">
+                        <div class="event-date">
+                            <i class="fas fa-calendar"></i>
+                            2023 · Research Colloquium
+                        </div>
+                        <h3 class="event-title">Primal-Dual Methods for Imaging</h3>
+                        <div class="event-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            National Symposium on Mathematics, IIT Madras
+                        </div>
+                        <p class="event-description">Presented our research on efficient primal-dual algorithms for medical image reconstruction.</p>
+                        <div class="event-links">
+                            <a href="#" class="btn btn-outline">
+                                <i class="fas fa-file-powerpoint"></i> Slides
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="section">
+            <div class="section-content">
+                <h2 class="section-title">Education</h2>
+                <p class="section-subtitle">Academic qualifications and achievements.</p>
+                
+                <div class="education-grid">
+                    <div class="education-item">
+                        <h3 class="edu-title">Indian Institute of Technology Madras, Chennai</h3>
+                        <p class="edu-degree">Research Scholar (PhD)</p>
+                        <p class="edu-meta">2022 – Present</p>
+                        <p>Joint PhD program with University of Melbourne. Focus on optimization algorithms for imaging.</p>
+                        <span class="edu-grade">Coursework CGPA: 8.69 / 10</span>
+                    </div>
+                    
+                    <div class="education-item">
+                        <h3 class="edu-title">Indian Institute of Technology Madras, Chennai</h3>
+                        <p class="edu-degree">M.Sc. in Mathematics</p>
+                        <p class="edu-meta">2020 – 2022</p>
+                        <p>Specialized in optimization theory and functional analysis.</p>
+                        <span class="edu-grade">CGPA: 7.97 / 10</span>
+                    </div>
+                    
+                    <div class="education-item">
+                        <h3 class="edu-title">Bankura Christian College, West Bengal</h3>
+                        <p class="edu-degree">B.Sc. in Mathematics</p>
+                        <p class="edu-meta">2017 – 2020</p>
+                        <p>Focused on advanced calculus, linear algebra, and differential equations.</p>
+                        <span class="edu-grade">CGPA: 9.18 / 10</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section">
+            <div class="section-content">
+                <h2 class="section-title">Contact Me</h2>
+                <p class="section-subtitle">Get in touch for collaborations, research opportunities, or inquiries.</p>
+                
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Email (IITM)</h4>
+                                <p><a href="mailto:ma22d002@smail.iitm.ac.in">ma22d002@smail.iitm.ac.in</a></p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Email (UniMelb)</h4>
+                                <p><a href="mailto:santanu.soe@student.unimelb.edu.au">santanu.soe@student.unimelb.edu.au</a></p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Location</h4>
+                                <p>Department of Mathematics, IIT Madras, Chennai, India</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Office Hours</h4>
+                                <p>Tuesday & Thursday: 2:00 PM - 4:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-content">
+                <p>© 2023 Santanu Soe. All rights reserved.</p>
+                <p>Designed for academic excellence and professional presentation</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navigation functionality
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                document.querySelectorAll('.nav-links a').forEach(a => {
+                    a.classList.remove('active');
+                });
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                // Get target section ID
+                const targetId = this.getAttribute('data-target');
+                
+                // Hide all sections
+                document.querySelectorAll('.section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Show target section
+                document.getElementById(targetId).classList.add('active');
+                
+                // Scroll to top of the section
+                document.getElementById(targetId).scrollTop = 0;
+            });
+        });
+        
+        // Form submission
+        const contactForm = document.getElementById('contactForm');
+        
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! Dr. Soe will get back to you soon.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
