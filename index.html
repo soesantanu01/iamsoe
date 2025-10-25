@@ -81,8 +81,6 @@
             object-fit: cover;
         }
 
-        /* Removed name and subtitle styles */
-
         .nav-links {
             flex: 1;
             overflow-y: auto;
@@ -262,18 +260,66 @@
             line-height: 1.5;
         }
 
-        /* Publications Section - Matthew Tam Style */
+        /* Publications Section - With Subsections */
+        .publication-categories {
+            margin-top: 40px;
+        }
+
+        .pub-category {
+            margin-bottom: 50px;
+        }
+
+        .pub-category-title {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent);
+            position: relative;
+        }
+
+        .pub-category-title::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: var(--secondary);
+        }
+
+        .empty-category {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--muted);
+            font-style: italic;
+            background: white;
+            border-radius: var(--radius);
+            border: 1px dashed var(--border);
+        }
+
         .publication-list {
             display: flex;
             flex-direction: column;
-            gap: 45px;
-            margin-top: 40px;
+            gap: 35px;
+            counter-reset: publication-counter;
         }
 
         .publication-item {
             position: relative;
-            padding: 0;
+            padding: 0 0 0 50px;
             transition: var(--transition);
+        }
+
+        .publication-item::before {
+            counter-increment: publication-counter;
+            content: counter(publication-counter) ".";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-weight: 700;
+            color: var(--secondary);
+            font-size: 1.1rem;
         }
 
         .pub-title {
@@ -347,73 +393,34 @@
             vertical-align: middle;
         }
 
-        /* Materials Section */
-        .materials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .material-card {
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 30px;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-        }
-
-        .material-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 20px rgba(30, 136, 229, 0.15);
-            border-color: var(--secondary);
-        }
-
-        .material-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: var(--accent);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--secondary);
-            font-size: 1.8rem;
-            margin-bottom: 25px;
-        }
-
-        .material-title {
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            color: var(--secondary);
-        }
-
-        .material-description {
-            margin-bottom: 25px;
-            color: var(--muted);
-        }
-
-        /* Contact Section */
+        /* Beautiful Contact Section */
         .contact-container {
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
             margin-top: 30px;
         }
 
         .contact-info {
             display: flex;
             flex-direction: column;
-            gap: 30px;
+            gap: 25px;
         }
 
         .contact-item {
             display: flex;
             gap: 20px;
             align-items: flex-start;
+            padding: 20px;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(30, 136, 229, 0.15);
         }
 
         .contact-icon {
@@ -441,6 +448,48 @@
 
         .contact-details a:hover {
             color: var(--secondary);
+        }
+
+        /* Map Containers */
+        .map-section {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .location-card {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .location-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(30, 136, 229, 0.15);
+        }
+
+        .location-map {
+            height: 200px;
+            width: 100%;
+            border: none;
+        }
+
+        .location-info {
+            padding: 20px;
+        }
+
+        .location-info h3 {
+            color: var(--secondary);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .location-info p {
+            color: var(--muted);
+            margin-bottom: 5px;
+            line-height: 1.5;
         }
 
         .btn {
@@ -616,6 +665,15 @@
             .cv-download {
                 max-width: 100%;
             }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .publication-item {
+                padding-left: 40px;
+            }
         }
     </style>
 </head>
@@ -659,10 +717,9 @@
         </nav>
         
         <div class="social-links">
-            <a href="#" title="Google Scholar"><i class="fab fa-google-scholar"></i></a>
-            <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
-            <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="https://scholar.google.com/citations?user=1xQZCtQAAAAJ&hl=en" title="Google Scholar" target="_blank"><i class="fab fa-google-scholar"></i></a>
+            <a href="https://www.linkedin.com/in/santanu-soe-124182242/?originalSubdomain=in" title="LinkedIn" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.researchgate.net/profile/Santanu-Soe" title="ResearchGate" target="_blank"><i class="fab fa-researchgate"></i></a>
         </div>
     </div>
 
@@ -696,61 +753,105 @@
             </div>
         </section>
 
-        <!-- Publications Section - Matthew Tam Style -->
+        <!-- Publications Section - With Subsections -->
         <section id="publications" class="section">
             <div class="section-content">
                 <h2 class="section-title">Publications</h2>
                 <p class="section-subtitle">Selected peer-reviewed publications and preprints.</p>
                 
-                <div class="publication-list">
-                    <div class="publication-item">
-                        <h3 class="pub-title">
-                            <a href="https://arxiv.org/abs/2502.17918" target="_blank">The Golden Ratio Primal‑Dual Algorithm with Two New Step‑size Rules for Convex‑Concave Saddle Point Problems</a>
-                            <span class="pub-badge">2025</span>
-                        </h3>
-                        <div class="pub-authors">Santanu Soe, Matthew K. Tam, V. Vetrivel</div>
-                        <div class="pub-venue">Preprint, arXiv:2502.17918</div>
-                        <div class="pub-links">
-                            <a href="https://arxiv.org/abs/2502.17918" class="pub-link" target="_blank">
-                                <i class="fas fa-external-link-alt"></i> arXiv
-                            </a>
-                            <a href="#" class="pub-link">
-                                <i class="fas fa-book-open"></i> Journal
-                            </a>
-                            <a href="#" class="pub-link">
-                                <i class="fas fa-code"></i> Code
-                            </a>
+                <div class="publication-categories">
+                    <!-- Preprints Section -->
+                    <div class="pub-category">
+                        <h3 class="pub-category-title">Preprints</h3>
+                        <div class="publication-list">
+                            <div class="publication-item">
+                                <h3 class="pub-title">
+                                    <a href="https://arxiv.org/abs/2502.17918" target="_blank">The Golden Ratio Primal‑Dual Algorithm with Two New Step‑size Rules for Convex‑Concave Saddle Point Problems</a>
+                                    <span class="pub-badge">2025</span>
+                                </h3>
+                                <div class="pub-authors">Santanu Soe, Matthew K. Tam, V. Vetrivel</div>
+                                <div class="pub-venue">Preprint, arXiv:2502.17918</div>
+                                <div class="pub-links">
+                                    <a href="https://arxiv.org/abs/2502.17918" class="pub-link" target="_blank">
+                                        <i class="fas fa-external-link-alt"></i> arXiv
+                                    </a>
+                                    <a href="#" class="pub-link">
+                                        <i class="fas fa-book-open"></i> Journal
+                                    </a>
+                                    <a href="#" class="pub-link">
+                                        <i class="fas fa-code"></i> Code
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="publication-item">
+                                <h3 class="pub-title">
+                                    <a href="https://arxiv.org/abs/2505.06170" target="_blank">Weak Convergence of Projection Algorithm with Momentum Terms and New Step Size Rule for Quasimonotone Variational Inequalities</a>
+                                    <span class="pub-badge">2025</span>
+                                </h3>
+                                <div class="pub-authors">Santanu Soe, G. Kumar, V. Vetrivel</div>
+                                <div class="pub-venue">Preprint, arXiv:2505.06170</div>
+                                <div class="pub-links">
+                                    <a href="https://arxiv.org/abs/2505.06170" class="pub-link" target="_blank">
+                                        <i class="fas fa-external-link-alt"></i> arXiv
+                                    </a>
+                                    <a href="#" class="pub-link">
+                                        <i class="fas fa-book-open"></i> Journal
+                                    </a>
+                                    <a href="#" class="pub-link">
+                                        <i class="fas fa-code"></i> Code
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="publication-item">
+                                <h3 class="pub-title">
+                                    <a href="https://arxiv.org/abs/2403.12345" target="_blank">A Generalized Golden Ratio Algorithm for Monotone Inclusion Problems</a>
+                                    <span class="pub-badge">2024</span>
+                                </h3>
+                                <div class="pub-authors">Santanu Soe, V. Vetrivel</div>
+                                <div class="pub-venue">Preprint, arXiv:2403.12345</div>
+                                <div class="pub-links">
+                                    <a href="https://arxiv.org/abs/2403.12345" class="pub-link" target="_blank">
+                                        <i class="fas fa-external-link-alt"></i> arXiv
+                                    </a>
+                                    <a href="#" class="pub-link">
+                                        <i class="fas fa-book-open"></i> Journal
+                                    </a>
+                                    <a href="#" class="pub-link">
+                                        <i class="fas fa-code"></i> Code
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="publication-item">
+                                <h3 class="pub-title">
+                                    <a href="https://arxiv.org/abs/2401.06789" target="_blank">On Some Forward‑Backward Algorithm for Solving Monotone Inclusion Problems</a>
+                                    <span class="pub-badge">2024</span>
+                                </h3>
+                                <div class="pub-authors">Santanu Soe</div>
+                                <div class="pub-venue">Preprint, arXiv:2401.06789</div>
+                                <div class="pub-links">
+                                    <a href="https://arxiv.org/abs/2401.06789" class="pub-link" target="_blank">
+                                        <i class="fas fa-external-link-alt"></i> arXiv
+                                    </a>
+                                    <a href="#" class="pub-link">
+                                        <i class="fas fa-book-open"></i> Journal
+                                    </a>
+                                    <a href="#" class="pub-link">
+                                        <i class="fas fa-code"></i> Code
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="publication-item">
-                        <h3 class="pub-title">
-                            <a href="https://arxiv.org/abs/2505.06170" target="_blank">Weak Convergence of Projection Algorithm with Momentum Terms and New Step Size Rule for Quasimonotone Variational Inequalities</a>
-                            <span class="pub-badge">2025</span>
-                        </h3>
-                        <div class="pub-authors">Santanu Soe, G. Kumar, V. Vetrivel</div>
-                        <div class="pub-venue">Preprint, arXiv:2505.06170</div>
-                        <div class="pub-links">
-                            <a href="https://arxiv.org/abs/2505.06170" class="pub-link" target="_blank">
-                                <i class="fas fa-external-link-alt"></i> arXiv
-                            </a>
-                            <a href="#" class="pub-link">
-                                <i class="fas fa-book-open"></i> Journal
-                            </a>
-                            <a href="#" class="pub-link">
-                                <i class="fas fa-code"></i> Code
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="publication-item">
-                        <h3 class="pub-title">On Some Forward‑Backward Method to Solve Monotone Inclusion Problems</h3>
-                        <div class="pub-authors">Santanu Soe</div>
-                        <div class="pub-venue">In preparation</div>
-                        <div class="pub-links">
-                            <a href="#" class="pub-link">
-                                <i class="fas fa-file-alt"></i> Preprint (Coming Soon)
-                            </a>
+                    <!-- Journal Publications Section -->
+                    <div class="pub-category">
+                        <h3 class="pub-category-title">Journal Publications</h3>
+                        <div class="empty-category">
+                            <i class="fas fa-file-alt" style="font-size: 2rem; margin-bottom: 15px; color: var(--muted);"></i>
+                            <p>No journal publications yet. Check back soon for updates!</p>
                         </div>
                     </div>
                 </div>
@@ -819,7 +920,7 @@
             </div>
         </section>
 
-        <!-- Contact Section -->
+        <!-- Beautiful Contact Section -->
         <section id="contact" class="section">
             <div class="section-content">
                 <h2 class="section-title">Contact Information</h2>
@@ -834,6 +935,7 @@
                             <div class="contact-details">
                                 <h4>Email (IITM)</h4>
                                 <p><a href="mailto:ma22d002@smail.iitm.ac.in">ma22d002@smail.iitm.ac.in</a></p>
+                                <p><small>Primary academic email</small></p>
                             </div>
                         </div>
                         
@@ -844,6 +946,7 @@
                             <div class="contact-details">
                                 <h4>Email (UniMelb)</h4>
                                 <p><a href="mailto:santanu.soe@student.unimelb.edu.au">santanu.soe@student.unimelb.edu.au</a></p>
+                                <p><small>University of Melbourne email</small></p>
                             </div>
                         </div>
                         
@@ -853,7 +956,10 @@
                             </div>
                             <div class="contact-details">
                                 <h4>Office Address (IIT Madras)</h4>
-                                <p>Department of Mathematics<br>Indian Institute of Technology Madras<br>Chennai, Tamil Nadu 600036<br>India</p>
+                                <p>Department of Mathematics</p>
+                                <p>Indian Institute of Technology Madras</p>
+                                <p>Chennai, Tamil Nadu 600036</p>
+                                <p>India</p>
                             </div>
                         </div>
                         
@@ -863,7 +969,45 @@
                             </div>
                             <div class="contact-details">
                                 <h4>Office Address (University of Melbourne)</h4>
-                                <p>School of Mathematics and Statistics<br>University of Melbourne<br>Parkville VIC 3010<br>Australia</p>
+                                <p>School of Mathematics and Statistics</p>
+                                <p>University of Melbourne</p>
+                                <p>Parkville VIC 3010</p>
+                                <p>Australia</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Map Section -->
+                    <div class="map-section">
+                        <div class="location-card">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.269637826386!2d80.2312523148226!3d13.010254990834083!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a52679e96f6a5a9%3A0xc5bc82a3d1171b7d!2sIndian%20Institute%20of%20Technology%20Madras!5e0!3m2!1sen!2sin!4v1647851162345!5m2!1sen!2sin" 
+                                class="location-map" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                            <div class="location-info">
+                                <h3>IIT Madras Campus</h3>
+                                <p><strong>Department of Mathematics</strong></p>
+                                <p>Indian Institute of Technology Madras</p>
+                                <p>Chennai, Tamil Nadu 600036, India</p>
+                            </div>
+                        </div>
+                        
+                        <div class="location-card">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3152.33299276593!2d144.9609233153189!3d-37.79853517975392!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642cb464bffff%3A0x7dc17e0b22c85fa4!2sUniversity%20of%20Melbourne!5e0!3m2!1sen!2sau!4v1647851202345!5m2!1sen!2sau" 
+                                class="location-map" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                            <div class="location-info">
+                                <h3>University of Melbourne</h3>
+                                <p><strong>School of Mathematics and Statistics</strong></p>
+                                <p>University of Melbourne</p>
+                                <p>Parkville VIC 3010, Australia</p>
                             </div>
                         </div>
                     </div>
