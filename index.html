@@ -8,21 +8,18 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #f8fbff;
-            --secondary: #3a86ff;
-            --secondary-dark: #2667cc;
-            --accent: #e6f0ff;
-            --light: #2d3748;
-            --muted: #718096;
-            --border: #e2e8f0;
-            --radius: 12px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --shadow: 0 4px 20px rgba(58, 134, 255, 0.08);
-            --shadow-hover: 0 8px 30px rgba(58, 134, 255, 0.12);
-            --gradient: linear-gradient(135deg, #3a86ff 0%, #2667cc 100%);
+            --primary: #f0f8ff;
+            --secondary: #1e88e5;
+            --secondary-dark: #1565c0;
+            --accent: #e3f2fd;
+            --light: #333333;
+            --muted: #666666;
+            --border: #e1e8ed;
+            --radius: 8px;
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --shadow: 0 4px 12px rgba(30, 136, 229, 0.1);
         }
 
         * {
@@ -32,7 +29,7 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
             background: var(--primary);
             color: var(--light);
             line-height: 1.7;
@@ -44,7 +41,7 @@
 
         /* Navigation */
         .sidebar {
-            width: 280px;
+            width: 300px;
             background: white;
             border-right: 1px solid var(--border);
             padding: 30px 0;
@@ -60,80 +57,31 @@
 
         .profile-card {
             text-align: center;
-            padding: 0 25px 25px;
+            padding: 0 30px 30px;
             border-bottom: 1px solid var(--border);
             margin-bottom: 20px;
         }
 
-        .profile-info h1 {
-            font-size: 1.5rem;
-            color: var(--secondary);
-            margin-bottom: 5px;
-            font-weight: 700;
-        }
-
-        .profile-info p {
-            color: var(--muted);
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-        }
-
-        .profile-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
-        }
-
-        .profile-tag {
-            background: var(--accent);
-            color: var(--secondary);
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-
         .profile-pic {
-            width: 160px;
-            height: 160px;
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
             border: 4px solid var(--secondary);
             margin: 0 auto 20px;
             overflow: hidden;
             box-shadow: var(--shadow);
             transition: var(--transition);
-            position: relative;
-        }
-
-        .profile-pic::before {
-            content: '';
-            position: absolute;
-            top: -4px;
-            left: -4px;
-            right: -4px;
-            bottom: -4px;
-            border-radius: 50%;
-            background: var(--gradient);
-            z-index: -1;
-            opacity: 0;
-            transition: var(--transition);
         }
 
         .profile-pic:hover {
             transform: scale(1.05);
-            box-shadow: 0 10px 30px rgba(58, 134, 255, 0.2);
-        }
-
-        .profile-pic:hover::before {
-            opacity: 1;
+            box-shadow: 0 8px 20px rgba(30, 136, 229, 0.2);
         }
 
         .profile-pic img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 50%;
         }
 
         .nav-links {
@@ -147,43 +95,25 @@
         }
 
         .nav-links li {
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
 
         .nav-links a {
             display: flex;
             align-items: center;
-            padding: 14px 18px;
+            padding: 14px 20px;
             color: var(--muted);
             text-decoration: none;
             border-radius: var(--radius);
             transition: var(--transition);
             font-weight: 500;
-            letter-spacing: 0.3px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-links a::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: var(--gradient);
-            opacity: 0.08;
-            transition: var(--transition);
+            letter-spacing: 0.5px;
         }
 
         .nav-links a:hover, .nav-links a.active {
             background: var(--accent);
             color: var(--secondary);
             transform: translateX(5px);
-        }
-
-        .nav-links a:hover::before, .nav-links a.active::before {
-            left: 0;
         }
 
         .nav-links i {
@@ -202,8 +132,8 @@
         }
 
         .social-links a {
-            width: 42px;
-            height: 42px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             background: var(--accent);
             display: flex;
@@ -211,41 +141,18 @@
             justify-content: center;
             color: var(--secondary);
             transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .social-links a::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--gradient);
-            opacity: 0;
-            transition: var(--transition);
         }
 
         .social-links a:hover {
-            transform: translateY(-5px);
+            background: var(--secondary);
             color: white;
-            box-shadow: 0 6px 15px rgba(58, 134, 255, 0.3);
-        }
-
-        .social-links a:hover::before {
-            opacity: 1;
-        }
-
-        .social-links a i {
-            position: relative;
-            z-index: 1;
+            transform: translateY(-5px);
         }
 
         /* Main Content */
         .main-content {
             flex: 1;
-            margin-left: 280px;
+            margin-left: 300px;
             height: 100vh;
             overflow-y: auto;
             position: relative;
@@ -264,7 +171,7 @@
         }
 
         .section-content {
-            max-width: 1200px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
@@ -273,9 +180,7 @@
             padding-bottom: 15px;
             margin-bottom: 30px;
             color: var(--secondary);
-            font-size: 2.4rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
+            font-size: 2.2rem;
         }
 
         .section-title::after {
@@ -283,18 +188,17 @@
             position: absolute;
             bottom: 0;
             left: 0;
-            width: 80px;
-            height: 5px;
-            background: var(--gradient);
-            border-radius: 3px;
+            width: 70px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
         }
 
         .section-subtitle {
             color: var(--muted);
             margin-bottom: 40px;
             max-width: 700px;
-            font-size: 1.15rem;
-            line-height: 1.6;
+            font-size: 1.1rem;
         }
 
         /* Home Section */
@@ -326,40 +230,6 @@
             font-weight: 500;
         }
         
-        .research-interests {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin: 40px 0;
-        }
-
-        .research-card {
-            background: white;
-            border-radius: var(--radius);
-            padding: 25px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            border-left: 4px solid var(--secondary);
-        }
-
-        .research-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .research-card h3 {
-            color: var(--secondary);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .research-card p {
-            color: var(--muted);
-            line-height: 1.6;
-        }
-        
         /* Updated CV Section - Smaller and Nicer */
         .cv-download {
             margin-top: 40px;
@@ -374,7 +244,7 @@
 
         .cv-download:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(58, 134, 255, 0.15);
+            box-shadow: 0 8px 20px rgba(30, 136, 229, 0.15);
         }
 
         .cv-download h3 {
@@ -393,7 +263,129 @@
             line-height: 1.5;
         }
 
-        /* Publications Section */
+        /* Analytics Section */
+        .analytics-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .stats-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(30, 136, 229, 0.15);
+        }
+
+        .stats-card h3 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stats-card h3 i {
+            font-size: 1.2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+            background: var(--accent);
+            border-radius: var(--radius);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        .chart-container {
+            height: 300px;
+            margin-top: 20px;
+        }
+
+        .map-container {
+            height: 400px;
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .visitor-list {
+            margin-top: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .visitor-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: white;
+            border-radius: var(--radius);
+            margin-bottom: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .visitor-flag {
+            width: 30px;
+            height: 20px;
+            margin-right: 15px;
+            border-radius: 2px;
+            object-fit: cover;
+        }
+
+        .visitor-details {
+            flex: 1;
+        }
+
+        .visitor-country {
+            font-weight: 600;
+            color: var(--light);
+        }
+
+        .visitor-city {
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        .visitor-count {
+            background: var(--accent);
+            color: var(--secondary);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        /* Publications Section - With Subsections */
         .publication-categories {
             margin-top: 40px;
         }
@@ -421,6 +413,16 @@
             background: var(--secondary);
         }
 
+        .empty-category {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--muted);
+            font-style: italic;
+            background: white;
+            border-radius: var(--radius);
+            border: 1px dashed var(--border);
+        }
+
         .publication-list {
             display: flex;
             flex-direction: column;
@@ -430,33 +432,19 @@
 
         .publication-item {
             position: relative;
-            padding: 25px;
-            background: white;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
+            padding: 0 0 0 50px;
             transition: var(--transition);
-            border-left: 4px solid transparent;
-        }
-
-        .publication-item:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-hover);
-            border-left: 4px solid var(--secondary);
         }
 
         .publication-item::before {
             counter-increment: publication-counter;
             content: counter(publication-counter) ".";
             position: absolute;
-            left: 25px;
-            top: 25px;
+            left: 0;
+            top: 0;
             font-weight: 700;
             color: var(--secondary);
             font-size: 1.1rem;
-        }
-
-        .pub-content {
-            padding-left: 30px;
         }
 
         .pub-title {
@@ -545,12 +533,11 @@
             box-shadow: var(--shadow);
             transition: var(--transition);
             text-align: center;
-            border-top: 4px solid var(--secondary);
         }
 
         .material-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-hover);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(30, 136, 229, 0.15);
         }
 
         .material-icon {
@@ -578,238 +565,7 @@
             line-height: 1.6;
         }
 
-        /* Analytics Section */
-        .analytics-container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .stats-card {
-            background: white;
-            border-radius: var(--radius);
-            padding: 28px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            border: 1px solid var(--border);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stats-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--gradient);
-        }
-
-        .stats-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .stats-card h3 {
-            color: var(--light);
-            margin-bottom: 20px;
-            font-size: 1.35rem;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 600;
-        }
-
-        .stats-card h3 i {
-            font-size: 1.3rem;
-            color: var(--secondary);
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 20px 15px;
-            background: var(--accent);
-            border-radius: var(--radius);
-            transition: var(--transition);
-            border: 1px solid rgba(58, 134, 255, 0.1);
-        }
-
-        .stat-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(58, 134, 255, 0.1);
-        }
-
-        .stat-number {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: var(--secondary);
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            color: var(--muted);
-            font-weight: 500;
-        }
-
-        .chart-container {
-            height: 300px;
-            margin-top: 20px;
-        }
-
-        .map-container {
-            height: 500px;
-            border-radius: var(--radius);
-            overflow: hidden;
-            margin-top: 20px;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-        }
-
-        .full-width {
-            grid-column: 1 / -1;
-        }
-
-        /* Visitor List */
-        .visitor-list {
-            margin-top: 20px;
-            max-height: 400px;
-            overflow-y: auto;
-            padding-right: 10px;
-        }
-
-        .visitor-list::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .visitor-list::-webkit-scrollbar-track {
-            background: var(--accent);
-            border-radius: 10px;
-        }
-
-        .visitor-list::-webkit-scrollbar-thumb {
-            background: var(--secondary);
-            border-radius: 10px;
-        }
-
-        .visitor-item {
-            display: flex;
-            align-items: center;
-            padding: 18px;
-            background: white;
-            border-radius: var(--radius);
-            margin-bottom: 12px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            border-left: 4px solid transparent;
-        }
-
-        .visitor-item:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-hover);
-            border-left: 4px solid var(--secondary);
-        }
-
-        .visitor-flag {
-            width: 32px;
-            height: 22px;
-            margin-right: 15px;
-            border-radius: 3px;
-            object-fit: cover;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .visitor-details {
-            flex: 1;
-        }
-
-        .visitor-country {
-            font-weight: 600;
-            color: var(--light);
-            font-size: 1.05rem;
-        }
-
-        .visitor-city {
-            font-size: 0.9rem;
-            color: var(--muted);
-        }
-
-        .visitor-count {
-            background: var(--gradient);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            box-shadow: 0 2px 5px rgba(58, 134, 255, 0.3);
-        }
-
-        /* Legend for Map */
-        .map-legend {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.9rem;
-            color: var(--muted);
-            background: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-        }
-
-        .legend-color {
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        /* Time Range Selector */
-        .time-selector {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 25px;
-            background: white;
-            padding: 10px;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            width: fit-content;
-        }
-
-        .time-btn {
-            padding: 8px 16px;
-            border-radius: 20px;
-            background: var(--accent);
-            color: var(--muted);
-            border: none;
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .time-btn.active {
-            background: var(--gradient);
-            color: white;
-            box-shadow: 0 3px 8px rgba(58, 134, 255, 0.3);
-        }
-
-        /* Contact Section */
+        /* Beautiful Contact Section */
         .contact-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -836,7 +592,7 @@
 
         .contact-item:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(58, 134, 255, 0.15);
+            box-shadow: 0 10px 25px rgba(30, 136, 229, 0.15);
         }
 
         .contact-icon {
@@ -883,7 +639,7 @@
 
         .location-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(58, 134, 255, 0.15);
+            box-shadow: 0 10px 25px rgba(30, 136, 229, 0.15);
         }
 
         .location-map {
@@ -925,13 +681,13 @@
         .btn-primary {
             background: var(--secondary);
             color: white;
-            box-shadow: 0 4px 12px rgba(58, 134, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(30, 136, 229, 0.3);
         }
 
         .btn-primary:hover {
             background: var(--secondary-dark);
             transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(58, 134, 255, 0.4);
+            box-shadow: 0 6px 15px rgba(30, 136, 229, 0.4);
         }
 
         .btn-outline {
@@ -967,16 +723,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-
         /* Responsive Design */
         @media (max-width: 1100px) {
             .sidebar {
@@ -988,10 +734,6 @@
             }
             
             .analytics-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .contact-container {
                 grid-template-columns: 1fr;
             }
         }
@@ -1043,7 +785,7 @@
             }
             
             .profile-card {
-                display: block;
+                display: none;
             }
             
             .nav-links {
@@ -1074,7 +816,7 @@
             }
             
             .social-links {
-                display: flex;
+                display: none;
             }
             
             .main-content {
@@ -1084,31 +826,32 @@
             
             .section {
                 min-height: auto;
-                padding: 50px 25px;
+                padding: 50px 30px;
             }
             
             .home-content h1 {
                 font-size: 2.5rem;
             }
             
-            .map-container {
-                height: 400px;
+            .pub-links {
+                flex-wrap: wrap;
+                gap: 15px;
             }
             
-            .stats-grid {
+            .cv-download {
+                max-width: 100%;
+            }
+            
+            .contact-container {
                 grid-template-columns: 1fr;
+                gap: 30px;
             }
             
-            .time-selector {
-                width: 100%;
-                justify-content: center;
+            .publication-item {
+                padding-left: 40px;
             }
             
             .materials-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .research-interests {
                 grid-template-columns: 1fr;
             }
         }
@@ -1121,15 +864,7 @@
             <div class="profile-pic">
                 <img src="https://scholar.googleusercontent.com/citations?view_op=medium_photo&user=1xQZCtQAAAAJ&citpid=8" alt="Santanu Soe">
             </div>
-            <div class="profile-info">
-                <h1>Santanu Soe</h1>
-                <p>Prime Minister's Research Fellow & Joint PhD Scholar</p>
-                <div class="profile-tags">
-                    <span class="profile-tag">IIT Madras</span>
-                    <span class="profile-tag">University of Melbourne</span>
-                    <span class="profile-tag">Optimization</span>
-                </div>
-            </div>
+            <!-- Name and affiliation removed as requested -->
         </div>
         
         <nav class="nav-links">
@@ -1171,7 +906,6 @@
             <a href="https://scholar.google.com/citations?user=1xQZCtQAAAAJ&hl=en" title="Google Scholar" target="_blank"><i class="fab fa-google-scholar"></i></a>
             <a href="https://www.linkedin.com/in/santanu-soe-124182242/?originalSubdomain=in" title="LinkedIn" target="_blank"><i class="fab fa-linkedin-in"></i></a>
             <a href="https://www.researchgate.net/profile/Santanu-Soe" title="ResearchGate" target="_blank"><i class="fab fa-researchgate"></i></a>
-            <a href="https://orcid.org/0009-0000-4832-204X" title="ORCID" target="_blank"><i class="fab fa-orcid"></i></a>
         </div>
     </div>
 
@@ -1184,31 +918,10 @@
                     <h1>Santanu Soe</h1>
                     
                     <div class="intro-text">
-                        <p>I am a <a href="https://pmrf.in/" target="_blank" class="highlight">Prime Minister's Research Fellow</a> and <a href="https://www.iitm.ac.in/academics/joint-phd-programmes" target="_blank" class="highlight">Joint PhD</a> Scholar at <a href="https://www.iitm.ac.in/" target="_blank" class="highlight">IIT Madras</a> and the <a href="https://www.unimelb.edu.au/" target="_blank" class="highlight">University of Melbourne</a>, specializing in nonsmooth optimization problems. I have received the <a href="https://scholarships.unimelb.edu.au/awards/melbourne-research-scholarship" target="_blank" class="highlight">Melbourne Research Fellowship</a> for my doctoral studies at the University of Melbourne.</p>
+                        <p>I am a <a href="https://pmrf.in/" target="_blank" class="highlight">Prime Minister's Research Fellow</a> and <a href="https://www.iitm.ac.in/academics/joint-phd-programmes" target="_blank" class="highlight">Joint PhD</a> Scholar at <a href="https://www.iitm.ac.in/" target="_blank" class="highlight">IIT Madras</a> and the <a href="https://www.unimelb.edu.au/" target="_blank" class="highlight">University of Melbourne</a>, specializing in nonsmooth optimization problem. I have received the <a href="https://scholarships.unimelb.edu.au/awards/melbourne-research-scholarship" target="_blank" class="highlight">Melbourne Research Fellowship</a> for my doctoral studies at the University of Melbourne.</p>
                         
-                        <p>My research focuses on improving and analyzing existing algorithms to make them computationally efficient. I work on <span class="highlight">operator splitting methods</span>, <span class="highlight">primal-dual algorithms</span>, and <span class="highlight">monotone inclusion problems</span>, with applications in signal processing, machine learning, and data science.</p>
-                    </div>
-                    
-                    <div class="research-interests">
-                        <div class="research-card">
-                            <h3><i class="fas fa-project-diagram"></i> Operator Splitting Methods</h3>
-                            <p>Developing and analyzing efficient algorithms for solving complex optimization problems by decomposing them into simpler subproblems.</p>
-                        </div>
+                        <p>I am working on improving and analyzing existing algorithms in such a way that they will be computationally non-expensive. My main research focuses are <span class="highlight">operator splitting methods</span>, <span class="highlight">primal-dual algorithms</span>, and <span class="highlight">monotone inclusion problems.</span>.</p>
                         
-                        <div class="research-card">
-                            <h3><i class="fas fa-balance-scale"></i> Primal-Dual Algorithms</h3>
-                            <p>Designing and studying primal-dual methods for saddle point problems and variational inequalities with applications in image processing and machine learning.</p>
-                        </div>
-                        
-                        <div class="research-card">
-                            <h3><i class="fas fa-infinity"></i> Monotone Inclusion Problems</h3>
-                            <p>Investigating theory and algorithms for solving monotone inclusion problems, which generalize many optimization problems and variational inequalities.</p>
-                        </div>
-                        
-                        <div class="research-card">
-                            <h3><i class="fas fa-bolt"></i> Computational Optimization</h3>
-                            <p>Focusing on developing computationally efficient algorithms with convergence guarantees for large-scale optimization problems.</p>
-                        </div>
                     </div>
                     
                     <!-- Updated CV Section - Smaller and Nicer -->
@@ -1223,11 +936,11 @@
             </div>
         </section>
 
-        <!-- Publications Section -->
+        <!-- Publications Section - With Subsections -->
         <section id="publications" class="section">
             <div class="section-content">
                 <h2 class="section-title">Publications</h2>
-                <p class="section-subtitle">Selected peer-reviewed publications and preprints in optimization and numerical analysis.</p>
+                <p class="section-subtitle">Selected peer-reviewed publications and preprints.</p>
                 
                 <div class="publication-categories">
                     <!-- Preprints Section -->
@@ -1235,90 +948,82 @@
                         <h3 class="pub-category-title">Preprints</h3>
                         <div class="publication-list">
                             <div class="publication-item">
-                                <div class="pub-content">
-                                    <h3 class="pub-title">
-                                        <a href="https://arxiv.org/abs/2502.17918" target="_blank">The Golden Ratio Primal‑Dual Algorithm with Two New Step‑size Rules for Convex‑Concave Saddle Point Problems</a>
-                                        <span class="pub-badge">2025</span>
-                                    </h3>
-                                    <div class="pub-authors">Santanu Soe, Matthew K. Tam, V. Vetrivel</div>
-                                    <div class="pub-venue">Preprint, arXiv:2502.17918</div>
-                                    <div class="pub-links">
-                                        <a href="https://arxiv.org/abs/2502.17918" class="pub-link" target="_blank">
-                                            <i class="fas fa-external-link-alt"></i> arXiv
-                                        </a>
-                                        <a href="#" class="pub-link">
-                                            <i class="fas fa-book-open"></i> Journal
-                                        </a>
-                                        <a href="#" class="pub-link">
-                                            <i class="fas fa-code"></i> Code
-                                        </a>
-                                    </div>
+                                <h3 class="pub-title">
+                                    <target="_blank">The Golden Ratio Primal‑Dual Algorithm with Two New Step‑size Rules for Convex‑Concave Saddle Point Problems</a>
+                                    <span class="pub-badge">2025</span>
+                                </h3>
+                                <div class="pub-authors">Santanu Soe, Matthew K. Tam, V. Vetrivel</div>
+                                <div class="pub-venue">Preprint, arXiv:2502.17918</div>
+                                <div class="pub-links">
+                                    <a href="https://arxiv.org/abs/2502.17918" class="pub-link" target="_blank">
+                                        <i class="fas fa-external-link-alt"></i> arXiv
+                                    </a>
+                                    <a href="#" class="pub-link">
+                                        <i class="fas fa-book-open"></i> Journal
+                                    </a>
+                                    <a href="#" class="pub-link">
+                                        <i class="fas fa-code"></i> Code
+                                    </a>
                                 </div>
                             </div>
                             
                             <div class="publication-item">
-                                <div class="pub-content">
-                                    <h3 class="pub-title">
-                                        <a href="https://arxiv.org/abs/2505.06170" target="_blank">Weak Convergence of Projection Algorithm with Momentum Terms and New Step Size Rule for Quasimonotone Variational Inequalities</a>
-                                        <span class="pub-badge">2025</span>
-                                    </h3>
-                                    <div class="pub-authors">Santanu Soe, G. Kumar, V. Vetrivel</div>
-                                    <div class="pub-venue">Preprint, arXiv:2505.06170</div>
-                                    <div class="pub-links">
-                                        <a href="https://arxiv.org/abs/2505.06170" class="pub-link" target="_blank">
-                                            <i class="fas fa-external-link-alt"></i> arXiv
-                                        </a>
-                                        <a href="#" class="pub-link">
-                                            <i class="fas fa-book-open"></i> Journal
-                                        </a>
-                                        <a href="#" class="pub-link">
-                                            <i class="fas fa-code"></i> Code
-                                        </a>
-                                    </div>
+                                <h3 class="pub-title">
+                                    <target="_blank">Weak Convergence of Projection Algorithm with Momentum Terms and New Step Size Rule for Quasimonotone Variational Inequalities</a>
+                                    <span class="pub-badge">2025</span>
+                                </h3>
+                                <div class="pub-authors">Santanu Soe, G. Kumar, V. Vetrivel</div>
+                                <div class="pub-venue">Preprint, arXiv:2505.06170</div>
+                                <div class="pub-links">
+                                    <a href="https://arxiv.org/abs/2505.06170" class="pub-link" target="_blank">
+                                        <i class="fas fa-external-link-alt"></i> arXiv
+                                    </a>
+                                    <a href="#" class="pub-link">
+                                        <i class="fas fa-book-open"></i> Journal
+                                    </a>
+                                    <a href="#" class="pub-link">
+                                        <i class="fas fa-code"></i> Code
+                                    </a>
                                 </div>
                             </div>
                             
                             <div class="publication-item">
-                                <div class="pub-content">
-                                    <h3 class="pub-title">
-                                        <a href="https://arxiv.org/abs/2509.02005" target="_blank">On Generalized Forward-Reflected-Backward Method for Monotone Inclusion Problems</a>
-                                        <span class="pub-badge">2025</span>
-                                    </h3>
-                                    <div class="pub-authors">Santanu Soe, V. Vetrivel, JC Yao</div>
-                                    <div class="pub-venue">Preprint, arXiv:2509.02005</div>
-                                    <div class="pub-links">
-                                        <a href="https://arxiv.org/abs/2509.02005" class="pub-link" target="_blank">
-                                            <i class="fas fa-external-link-alt"></i> arXiv
-                                        </a>
-                                        <a href="#" class="pub-link">
-                                            <i class="fas fa-book-open"></i> Journal
-                                        </a>
-                                        <a href="#" class="pub-link">
-                                            <i class="fas fa-code"></i> Code
-                                        </a>
-                                    </div>
+                                <h3 class="pub-title">
+                                    <target="_blank">On Generalized Forward-Reflected-Backward Method for Monotone Inclusion Problems</a>
+                                    <span class="pub-badge">2025</span>
+                                </h3>
+                                <div class="pub-authors">Santanu Soe, V. Vetrivel, JC Yao</div>
+                                <div class="pub-venue">Preprint, arXiv:2403.12345</div>
+                                <div class="pub-links">
+                                    <a href="https://arxiv.org/abs/2509.02005" class="pub-link" target="_blank">
+                                        <i class="fas fa-external-link-alt"></i> arXiv
+                                    </a>
+                                    <a href="#" class="pub-link">
+                                        <i class="fas fa-book-open"></i> Journal
+                                    </a>
+                                    <a href="#" class="pub-link">
+                                        <i class="fas fa-code"></i> Code
+                                    </a>
                                 </div>
                             </div>
                             
                             <div class="publication-item">
-                                <div class="pub-content">
-                                    <h3 class="pub-title">
-                                        <a href="https://arxiv.org/abs/2510.05779" target="_blank">The Golden Ratio Proximal ADMM with Norm Independent Step-Sizes for Separable Convex Optimization</a>
-                                        <span class="pub-badge">2025</span>
-                                    </h3>
-                                    <div class="pub-authors">Santanu Soe, V. Vetrivel</div>
-                                    <div class="pub-venue">Preprint, arXiv:2510.05779</div>
-                                    <div class="pub-links">
-                                        <a href="https://arxiv.org/abs/2510.05779" class="pub-link" target="_blank">
-                                            <i class="fas fa-external-link-alt"></i> arXiv
-                                        </a>
-                                        <a href="#" class="pub-link">
-                                            <i class="fas fa-book-open"></i> Journal
-                                        </a>
-                                        <a href="#" class="pub-link">
-                                            <i class="fas fa-code"></i> Code
-                                        </a>
-                                    </div>
+                                <h3 class="pub-title">
+                                    <target="_blank">The Golden Ratio Proximal ADMM with Norm Independent Step-Sizes for Separable Convex Optimization</a>
+                                    <span class="pub-badge">2025</span>
+                                </h3>
+                                <div class="pub-authors">Santanu Soe, V. Vetrivel</div>
+                                <div class="pub-venue">Preprint, arXiv:2401.06789</div>
+                                <div class="pub-links">
+                                    <a href="https://arxiv.org/abs/2510.05779" class="pub-link" target="_blank">
+                                        <i class="fas fa-external-link-alt"></i> arXiv
+                                    </a>
+                                    <a href="#" class="pub-link">
+                                        <i class="fas fa-book-open"></i> Journal
+                                    </a>
+                                    <a href="#" class="pub-link">
+                                        <i class="fas fa-code"></i> Code
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -1327,25 +1032,9 @@
                     <!-- Journal Publications Section -->
                     <div class="pub-category">
                         <h3 class="pub-category-title">Journal Publications</h3>
-                        <div class="publication-list">
-                            <div class="publication-item">
-                                <div class="pub-content">
-                                    <h3 class="pub-title">
-                                        <a href="#" target="_blank">Convergence Analysis of a Modified Forward-Reflected-Backward Splitting Algorithm</a>
-                                        <span class="pub-badge">Forthcoming</span>
-                                    </h3>
-                                    <div class="pub-authors">Santanu Soe, V. Vetrivel</div>
-                                    <div class="pub-venue">Journal of Optimization Theory and Applications</div>
-                                    <div class="pub-links">
-                                        <a href="#" class="pub-link">
-                                            <i class="fas fa-book-open"></i> Journal
-                                        </a>
-                                        <a href="#" class="pub-link">
-                                            <i class="fas fa-code"></i> Code
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="empty-category">
+                            <i class="fas fa-file-alt" style="font-size: 2rem; margin-bottom: 15px; color: var(--muted);"></i>
+                            <p>No journal publications yet. Check back soon for updates!</p>
                         </div>
                     </div>
                 </div>
@@ -1356,7 +1045,7 @@
         <section id="materials" class="section">
             <div class="section-content">
                 <h2 class="section-title">Teaching Materials</h2>
-                <p class="section-subtitle">Educational resources, lecture notes, and course materials for students and researchers.</p>
+                <p class="section-subtitle">Educational resources, lecture notes, and course materials.</p>
                 
                 <div class="materials-grid">
                     <div class="material-card">
@@ -1418,13 +1107,7 @@
         <section id="analytics" class="section">
             <div class="section-content">
                 <h2 class="section-title">Visitor Analytics</h2>
-                <p class="section-subtitle">Track and visualize visitor statistics for your portfolio with interactive maps and detailed insights.</p>
-                
-                <div class="time-selector">
-                    <button class="time-btn active">Last 7 Days</button>
-                    <button class="time-btn">Last 30 Days</button>
-                    <button class="time-btn">All Time</button>
-                </div>
+                <p class="section-subtitle">Track and visualize visitor statistics for your portfolio.</p>
                 
                 <div class="analytics-container">
                     <!-- Summary Statistics -->
@@ -1432,19 +1115,19 @@
                         <h3><i class="fas fa-chart-line"></i> Summary Statistics</h3>
                         <div class="stats-grid">
                             <div class="stat-item">
-                                <div class="stat-number" id="totalVisitors">127</div>
+                                <div class="stat-number" id="totalVisitors">0</div>
                                 <div class="stat-label">Total Visitors</div>
                             </div>
                             <div class="stat-item">
-                                <div class="stat-number" id="uniqueVisitors">89</div>
+                                <div class="stat-number" id="uniqueVisitors">0</div>
                                 <div class="stat-label">Unique Visitors</div>
                             </div>
                             <div class="stat-item">
-                                <div class="stat-number" id="countriesCount">18</div>
+                                <div class="stat-number" id="countriesCount">0</div>
                                 <div class="stat-label">Countries</div>
                             </div>
                             <div class="stat-item">
-                                <div class="stat-number" id="citiesCount">42</div>
+                                <div class="stat-number" id="citiesCount">0</div>
                                 <div class="stat-label">Cities</div>
                             </div>
                         </div>
@@ -1462,24 +1145,6 @@
                     <div class="stats-card full-width">
                         <h3><i class="fas fa-globe-americas"></i> Visitor Locations</h3>
                         <div class="map-container" id="visitorMap"></div>
-                        <div class="map-legend">
-                            <div class="legend-item">
-                                <div class="legend-color" style="background-color: #4cc9f0;"></div>
-                                <span>1-5 visits</span>
-                            </div>
-                            <div class="legend-item">
-                                <div class="legend-color" style="background-color: #4361ee;"></div>
-                                <span>6-15 visits</span>
-                            </div>
-                            <div class="legend-item">
-                                <div class="legend-color" style="background-color: #3a0ca3;"></div>
-                                <span>16+ visits</span>
-                            </div>
-                            <div class="legend-item">
-                                <div class="legend-color pulse" style="background-color: #f72585;"></div>
-                                <span>Your Location</span>
-                            </div>
-                        </div>
                     </div>
                     
                     <!-- Recent Visitors -->
@@ -1493,7 +1158,7 @@
             </div>
         </section>
 
-        <!-- Contact Section -->
+        <!-- Beautiful Contact Section -->
         <section id="contact" class="section">
             <div class="section-content">
                 <h2 class="section-title">Contact Information</h2>
@@ -1598,69 +1263,138 @@
     </div>
 
     <script>
-        // Initialize everything when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeNavigation();
-            initializeAnalytics();
-            
-            // Add time selector functionality
-            document.querySelectorAll('.time-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    // In a real implementation, you would filter data based on time range
-                });
-            });
-
-            // CV Download
-            const cvDownload = document.getElementById('cvDownload');
-            cvDownload.addEventListener('click', function(e) {
+        // Navigation functionality
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
                 e.preventDefault();
-                alert('In a real implementation, this would download your CV. For now, it just shows this message.');
+                
+                // Remove active class from all links
+                document.querySelectorAll('.nav-links a').forEach(a => {
+                    a.classList.remove('active');
+                });
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                // Get target section ID
+                const targetId = this.getAttribute('data-target');
+                
+                // Hide all sections
+                document.querySelectorAll('.section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Show target section
+                document.getElementById(targetId).classList.add('active');
+                
+                // Scroll to top of the section
+                document.getElementById(targetId).scrollTop = 0;
+                
+                // If analytics section is shown, initialize the analytics
+                if (targetId === 'analytics') {
+                    initializeAnalytics();
+                }
             });
         });
-
-        // Setup navigation
-        function initializeNavigation() {
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // Remove active class from all links
-                    document.querySelectorAll('.nav-links a').forEach(a => {
-                        a.classList.remove('active');
-                    });
-                    
-                    // Add active class to clicked link
-                    this.classList.add('active');
-                    
-                    // Get target section ID
-                    const targetId = this.getAttribute('data-target');
-                    
-                    // Hide all sections
-                    document.querySelectorAll('.section').forEach(section => {
-                        section.classList.remove('active');
-                    });
-                    
-                    // Show target section
-                    document.getElementById(targetId).classList.add('active');
-                    
-                    // If analytics section is shown, initialize the analytics
-                    if (targetId === 'analytics') {
-                        initializeAnalytics();
-                    }
-                });
-            });
-        }
+        
+        // CV Download
+        const cvDownload = document.getElementById('cvDownload');
+        
+        cvDownload.addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('In a real implementation, this would download your CV. For now, it just shows this message.');
+        });
 
         // Analytics functionality
         let visitorData = [];
         let analyticsInitialized = false;
 
+        // Function to track visitor
+        function trackVisitor() {
+            // Get visitor data from IP API
+            fetch('https://ipapi.co/json/')
+                .then(response => response.json())
+                .then(data => {
+                    const visitor = {
+                        ip: data.ip,
+                        country: data.country_name,
+                        countryCode: data.country_code,
+                        city: data.city,
+                        region: data.region,
+                        latitude: data.latitude,
+                        longitude: data.longitude,
+                        timezone: data.timezone,
+                        timestamp: new Date().toISOString(),
+                        userAgent: navigator.userAgent
+                    };
+                    
+                    // Store visitor data in localStorage
+                    let storedVisitors = JSON.parse(localStorage.getItem('portfolioVisitors')) || [];
+                    
+                    // Check if this IP has visited before
+                    const existingVisitorIndex = storedVisitors.findIndex(v => v.ip === visitor.ip);
+                    
+                    if (existingVisitorIndex !== -1) {
+                        // Update existing visitor's timestamp
+                        storedVisitors[existingVisitorIndex].timestamp = visitor.timestamp;
+                        storedVisitors[existingVisitorIndex].visits = (storedVisitors[existingVisitorIndex].visits || 1) + 1;
+                    } else {
+                        // Add new visitor
+                        visitor.visits = 1;
+                        storedVisitors.push(visitor);
+                    }
+                    
+                    // Save updated visitor data
+                    localStorage.setItem('portfolioVisitors', JSON.stringify(storedVisitors));
+                    
+                    // Update analytics display if on analytics page
+                    if (document.getElementById('analytics').classList.contains('active')) {
+                        initializeAnalytics();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error tracking visitor:', error);
+                    
+                    // Fallback with mock data for demonstration
+                    const mockVisitor = {
+                        ip: '192.168.1.1',
+                        country: 'Unknown',
+                        countryCode: 'US',
+                        city: 'Unknown',
+                        region: 'Unknown',
+                        latitude: 0,
+                        longitude: 0,
+                        timezone: 'UTC',
+                        timestamp: new Date().toISOString(),
+                        userAgent: navigator.userAgent,
+                        visits: 1
+                    };
+                    
+                    let storedVisitors = JSON.parse(localStorage.getItem('portfolioVisitors')) || [];
+                    storedVisitors.push(mockVisitor);
+                    localStorage.setItem('portfolioVisitors', JSON.stringify(storedVisitors));
+                    
+                    if (document.getElementById('analytics').classList.contains('active')) {
+                        initializeAnalytics();
+                    }
+                });
+        }
+
         // Initialize analytics display
         function initializeAnalytics() {
-            // For demo purposes, we'll use mock data
-            generateMockData();
+            if (analyticsInitialized) return;
+            
+            visitorData = JSON.parse(localStorage.getItem('portfolioVisitors')) || [];
+            
+            // Update summary statistics
+            document.getElementById('totalVisitors').textContent = visitorData.reduce((sum, visitor) => sum + (visitor.visits || 1), 0);
+            document.getElementById('uniqueVisitors').textContent = visitorData.length;
+            
+            const countries = [...new Set(visitorData.map(v => v.country))].filter(c => c && c !== 'Unknown');
+            document.getElementById('countriesCount').textContent = countries.length;
+            
+            const cities = [...new Set(visitorData.map(v => v.city))].filter(c => c && c !== 'Unknown');
+            document.getElementById('citiesCount').textContent = cities.length;
             
             // Initialize traffic chart
             initializeTrafficChart();
@@ -1672,75 +1406,6 @@
             initializeVisitorList();
             
             analyticsInitialized = true;
-        }
-
-        // Generate mock visitor data for demonstration
-        function generateMockData() {
-            const mockLocations = [
-                { country: "United States", countryCode: "US", city: "New York", lat: 40.7128, lng: -74.0060 },
-                { country: "India", countryCode: "IN", city: "Chennai", lat: 13.0827, lng: 80.2707 },
-                { country: "Australia", countryCode: "AU", city: "Melbourne", lat: -37.8136, lng: 144.9631 },
-                { country: "United Kingdom", countryCode: "GB", city: "London", lat: 51.5074, lng: -0.1278 },
-                { country: "Germany", countryCode: "DE", city: "Berlin", lat: 52.5200, lng: 13.4050 },
-                { country: "Japan", countryCode: "JP", city: "Tokyo", lat: 35.6762, lng: 139.6503 },
-                { country: "Brazil", countryCode: "BR", city: "São Paulo", lat: -23.5505, lng: -46.6333 },
-                { country: "Canada", countryCode: "CA", city: "Toronto", lat: 43.6532, lng: -79.3832 },
-                { country: "France", countryCode: "FR", city: "Paris", lat: 48.8566, lng: 2.3522 },
-                { country: "Singapore", countryCode: "SG", city: "Singapore", lat: 1.3521, lng: 103.8198 },
-                { country: "Netherlands", countryCode: "NL", city: "Amsterdam", lat: 52.3676, lng: 4.9041 },
-                { country: "South Korea", countryCode: "KR", city: "Seoul", lat: 37.5665, lng: 126.9780 },
-                { country: "Switzerland", countryCode: "CH", city: "Zurich", lat: 47.3769, lng: 8.5417 },
-                { country: "United Arab Emirates", countryCode: "AE", city: "Dubai", lat: 25.2048, lng: 55.2708 },
-                { country: "South Africa", countryCode: "ZA", city: "Cape Town", lat: -33.9249, lng: 18.4241 },
-                { country: "Mexico", countryCode: "MX", city: "Mexico City", lat: 19.4326, lng: -99.1332 },
-                { country: "Italy", countryCode: "IT", city: "Rome", lat: 41.9028, lng: 12.4964 },
-                { country: "Spain", countryCode: "ES", city: "Madrid", lat: 40.4168, lng: -3.7038 }
-            ];
-
-            visitorData = [];
-            
-            // Generate between 80-120 visitors
-            const visitorCount = Math.floor(Math.random() * 40) + 80;
-            
-            for (let i = 0; i < visitorCount; i++) {
-                const randomLocation = mockLocations[Math.floor(Math.random() * mockLocations.length)];
-                const visits = Math.floor(Math.random() * 20) + 1; // 1-20 visits
-                
-                const visitor = {
-                    ip: '192.168.' + Math.floor(Math.random() * 255) + '.' + Math.floor(Math.random() * 255),
-                    country: randomLocation.country,
-                    countryCode: randomLocation.countryCode,
-                    city: randomLocation.city,
-                    region: '',
-                    latitude: randomLocation.lat + (Math.random() - 0.5) * 2, // Add some variance
-                    longitude: randomLocation.lng + (Math.random() - 0.5) * 2,
-                    timezone: 'UTC',
-                    timestamp: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString(), // Random date in last 30 days
-                    userAgent: navigator.userAgent,
-                    visits: visits
-                };
-                
-                visitorData.push(visitor);
-            }
-            
-            // Add current user as a visitor with a special marker
-            const currentUserLocation = mockLocations[Math.floor(Math.random() * mockLocations.length)];
-            const currentUser = {
-                ip: 'current_user',
-                country: currentUserLocation.country,
-                countryCode: currentUserLocation.countryCode,
-                city: currentUserLocation.city,
-                region: '',
-                latitude: currentUserLocation.lat,
-                longitude: currentUserLocation.lng,
-                timezone: 'UTC',
-                timestamp: new Date().toISOString(),
-                userAgent: navigator.userAgent,
-                visits: 1,
-                isCurrentUser: true
-            };
-            
-            visitorData.push(currentUser);
         }
 
         // Initialize traffic sources chart
@@ -1769,11 +1434,11 @@
                     datasets: [{
                         data: data,
                         backgroundColor: [
-                            '#4cc9f0',
-                            '#4361ee',
-                            '#3a0ca3',
-                            '#7209b7',
-                            '#f72585'
+                            '#1e88e5',
+                            '#1565c0',
+                            '#0d47a1',
+                            '#42a5f5',
+                            '#90caf9'
                         ],
                         borderWidth: 2,
                         borderColor: '#fff'
@@ -1782,130 +1447,34 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    cutout: '65%',
                     plugins: {
                         legend: {
-                            position: 'bottom',
-                            labels: {
-                                padding: 20,
-                                usePointStyle: true,
-                                pointStyle: 'circle'
-                            }
+                            position: 'bottom'
+                        },
+                        title: {
+                            display: true,
+                            text: 'Visitors by Country'
                         }
                     }
                 }
             });
         }
 
-        // Initialize visitor map with dots
+        // Initialize visitor map
         function initializeVisitorMap() {
             const map = L.map('visitorMap').setView([20, 0], 2);
             
-            // Use a more visually appealing map style
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-                subdomains: 'abcd',
-                maxZoom: 20
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(map);
             
-            // Group visitors by location to avoid overlapping dots
-            const locationGroups = {};
-            
+            // Add markers for each visitor
             visitorData.forEach(visitor => {
                 if (visitor.latitude && visitor.longitude) {
-                    const key = `${visitor.latitude.toFixed(2)},${visitor.longitude.toFixed(2)}`;
-                    
-                    if (!locationGroups[key]) {
-                        locationGroups[key] = {
-                            lat: visitor.latitude,
-                            lng: visitor.longitude,
-                            country: visitor.country,
-                            city: visitor.city,
-                            visits: 0,
-                            visitors: [],
-                            isCurrentUser: visitor.isCurrentUser || false
-                        };
-                    }
-                    
-                    locationGroups[key].visits += visitor.visits || 1;
-                    locationGroups[key].visitors.push(visitor);
-                    
-                    if (visitor.isCurrentUser) {
-                        locationGroups[key].isCurrentUser = true;
-                    }
+                    L.marker([visitor.latitude, visitor.longitude])
+                        .addTo(map)
+                        .bindPopup(`<b>${visitor.city || 'Unknown'}, ${visitor.country || 'Unknown'}</b><br>Visits: ${visitor.visits || 1}`);
                 }
-            });
-            
-            // Add dots for each location group
-            Object.values(locationGroups).forEach(location => {
-                // Determine dot size and color based on visit count
-                let radius, color;
-                
-                if (location.isCurrentUser) {
-                    radius = 10;
-                    color = '#f72585'; // Pink for current user
-                } else if (location.visits <= 5) {
-                    radius = 6;
-                    color = '#4cc9f0'; // Light blue for low visits
-                } else if (location.visits <= 15) {
-                    radius = 9;
-                    color = '#4361ee'; // Blue for medium visits
-                } else {
-                    radius = 12;
-                    color = '#3a0ca3'; // Dark blue for high visits
-                }
-                
-                // Create circle marker
-                const circle = L.circleMarker([location.lat, location.lng], {
-                    color: color,
-                    fillColor: color,
-                    fillOpacity: 0.8,
-                    radius: radius,
-                    weight: location.isCurrentUser ? 3 : 1
-                }).addTo(map);
-                
-                // Add pulsing animation for current user
-                if (location.isCurrentUser) {
-                    setInterval(() => {
-                        circle.setRadius(radius + 2);
-                        setTimeout(() => {
-                            circle.setRadius(radius);
-                        }, 500);
-                    }, 2000);
-                }
-                
-                // Add popup with location info
-                let popupContent = `<div style="min-width: 180px; font-family: 'Inter', sans-serif;">`;
-                
-                if (location.isCurrentUser) {
-                    popupContent += `<div style="display: flex; align-items: center; margin-bottom: 8px;">
-                                        <div style="width: 10px; height: 10px; border-radius: 50%; background: #f72585; margin-right: 8px;"></div>
-                                        <strong>Your Location</strong>
-                                    </div>`;
-                }
-                
-                popupContent += `<strong>${location.city || 'Unknown'}, ${location.country || 'Unknown'}</strong><br>
-                                Total Visits: ${location.visits}<br>
-                                Unique Visitors: ${location.visitors.length}`;
-                
-                popupContent += `</div>`;
-                
-                circle.bindPopup(popupContent);
-                
-                // Add animation on hover
-                circle.on('mouseover', function() {
-                    this.setStyle({
-                        fillOpacity: 1,
-                        weight: location.isCurrentUser ? 4 : 2
-                    });
-                });
-                
-                circle.on('mouseout', function() {
-                    this.setStyle({
-                        fillOpacity: 0.8,
-                        weight: location.isCurrentUser ? 3 : 1
-                    });
-                });
             });
         }
 
@@ -1917,30 +1486,36 @@
             // Sort visitors by most recent
             const sortedVisitors = [...visitorData].sort((a, b) => 
                 new Date(b.timestamp) - new Date(a.timestamp)
-            ).slice(0, 8); // Show only 8 most recent
+            ).slice(0, 10); // Show only 10 most recent
             
             sortedVisitors.forEach(visitor => {
                 const visitorItem = document.createElement('div');
                 visitorItem.className = 'visitor-item';
-                
-                if (visitor.isCurrentUser) {
-                    visitorItem.style.borderLeft = '4px solid #f72585';
-                }
                 
                 const flagUrl = `https://flagcdn.com/w40/${visitor.countryCode?.toLowerCase() || 'us'}.png`;
                 
                 visitorItem.innerHTML = `
                     <img src="${flagUrl}" class="visitor-flag" alt="${visitor.country || 'Unknown'} flag">
                     <div class="visitor-details">
-                        <div class="visitor-country">${visitor.country || 'Unknown'} ${visitor.isCurrentUser ? '<span style="color: #f72585;">(You)</span>' : ''}</div>
-                        <div class="visitor-city">${visitor.city || 'Unknown'}</div>
+                        <div class="visitor-country">${visitor.country || 'Unknown'}</div>
+                        <div class="visitor-city">${visitor.city || 'Unknown'}, ${visitor.region || 'Unknown'}</div>
                     </div>
                     <div class="visitor-count">${visitor.visits || 1} visit${visitor.visits > 1 ? 's' : ''}</div>
                 `;
                 
                 visitorList.appendChild(visitorItem);
             });
+            
+            // If no visitors, show message
+            if (sortedVisitors.length === 0) {
+                visitorList.innerHTML = '<div class="empty-category"><p>No visitor data yet. Check back later!</p></div>';
+            }
         }
+
+        // Track visitor on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            trackVisitor();
+        });
     </script>
 </body>
 </html>
