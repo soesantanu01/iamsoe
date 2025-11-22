@@ -311,7 +311,7 @@
 
         .stats-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr;
             gap: 20px;
         }
 
@@ -1337,10 +1337,6 @@
                                 <div class="stat-label">Total Visitors</div>
                             </div>
                             <div class="stat-item">
-                                <div class="stat-number" id="uniqueVisitors">0</div>
-                                <div class="stat-label">Unique Visitors</div>
-                            </div>
-                            <div class="stat-item">
                                 <div class="stat-number" id="countriesCount">0</div>
                                 <div class="stat-label">Countries</div>
                             </div>
@@ -1714,20 +1710,17 @@
         function updateSummaryStatistics() {
             if (!visitorData.length) {
                 document.getElementById('totalVisitors').textContent = '0';
-                document.getElementById('uniqueVisitors').textContent = '0';
                 document.getElementById('countriesCount').textContent = '0';
                 document.getElementById('citiesCount').textContent = '0';
                 return;
             }
             
             const totalVisitors = visitorData.reduce((sum, visitor) => sum + (visitor.visits || 1), 0);
-            const uniqueVisitors = visitorData.length;
             
             const countries = [...new Set(visitorData.map(v => v.country))].filter(c => c);
             const cities = [...new Set(visitorData.map(v => v.city))].filter(c => c);
             
             document.getElementById('totalVisitors').textContent = totalVisitors.toLocaleString();
-            document.getElementById('uniqueVisitors').textContent = uniqueVisitors.toLocaleString();
             document.getElementById('countriesCount').textContent = countries.length.toLocaleString();
             document.getElementById('citiesCount').textContent = cities.length.toLocaleString();
         }
