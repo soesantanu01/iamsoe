@@ -263,7 +263,7 @@
             line-height: 1.5;
         }
 
-        /* Analytics Section - IMPROVED */
+        /* Analytics Section - SIMPLIFIED */
         .analytics-container {
             display: grid;
             grid-template-columns: 1fr;
@@ -339,12 +339,6 @@
             color: var(--muted);
         }
 
-        .chart-container {
-            height: 300px;
-            margin-top: 20px;
-            position: relative;
-        }
-
         .map-container {
             height: 400px;
             border-radius: var(--radius);
@@ -366,112 +360,8 @@
             z-index: 1000;
         }
 
-        .visitor-list {
-            margin-top: 20px;
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        .visitor-item {
-            display: flex;
-            align-items: center;
-            padding: 15px;
-            background: white;
-            border-radius: var(--radius);
-            margin-bottom: 10px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-
-        .visitor-item:hover {
-            transform: translateY(-2px);
-        }
-
-        .visitor-flag {
-            width: 30px;
-            height: 20px;
-            margin-right: 15px;
-            border-radius: 2px;
-            object-fit: cover;
-        }
-
-        .visitor-details {
-            flex: 1;
-        }
-
-        .visitor-country {
-            font-weight: 600;
-            color: var(--light);
-        }
-
-        .visitor-city {
-            font-size: 0.9rem;
-            color: var(--muted);
-        }
-
-        .visitor-count {
-            background: var(--accent);
-            color: var(--secondary);
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
         .full-width {
             grid-column: 1 / -1;
-        }
-
-        /* Analytics Controls */
-        .analytics-controls {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-        }
-
-        .time-selector {
-            display: flex;
-            gap: 10px;
-            background: white;
-            padding: 10px;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-        }
-
-        .time-btn {
-            padding: 8px 16px;
-            border-radius: 20px;
-            background: var(--accent);
-            color: var(--muted);
-            border: none;
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .time-btn.active {
-            background: var(--secondary);
-            color: white;
-        }
-
-        .control-btn {
-            padding: 8px 16px;
-            border-radius: var(--radius);
-            background: white;
-            color: var(--secondary);
-            border: 1px solid var(--border);
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: var(--shadow);
-        }
-
-        .control-btn:hover {
-            background: var(--accent);
         }
 
         /* Loading States */
@@ -987,20 +877,9 @@
                 height: 350px;
             }
             
-            .analytics-controls {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .time-selector {
-                width: 100%;
-                justify-content: center;
-            }
-            
             /* Reduce animations on mobile for better performance */
             .stats-card:hover,
-            .stat-item:hover,
-            .visitor-item:hover {
+            .stat-item:hover {
                 transform: none;
             }
         }
@@ -1310,27 +1189,16 @@
             </div>
         </section>
 
-        <!-- Visitor Analytics Section - IMPROVED -->
+        <!-- SIMPLIFIED Visitor Analytics Section -->
         <section id="analytics" class="section">
             <div class="section-content">
                 <h2 class="section-title">Visitor Analytics</h2>
-                <p class="section-subtitle">Track and visualize visitor statistics for your portfolio.</p>
-                
-                <div class="analytics-controls">
-                    <div class="time-selector">
-                        <button class="time-btn active" data-range="7">Last 7 Days</button>
-                        <button class="time-btn" data-range="30">Last 30 Days</button>
-                        <button class="time-btn" data-range="365">All Time</button>
-                    </div>
-                    <button class="control-btn" id="refreshAnalytics">
-                        <i class="fas fa-sync-alt"></i> Refresh
-                    </button>
-                </div>
+                <p class="section-subtitle">Simple overview of portfolio visitors and their locations.</p>
                 
                 <div class="analytics-container">
                     <!-- Summary Statistics -->
                     <div class="stats-card performance-optimized">
-                        <h3><i class="fas fa-chart-line"></i> Summary Statistics</h3>
+                        <h3><i class="fas fa-chart-line"></i> Summary</h3>
                         <div class="stats-grid">
                             <div class="stat-item">
                                 <div class="stat-number" id="totalVisitors">0</div>
@@ -1356,17 +1224,6 @@
                                     <div class="loading-spinner" style="margin: 0 auto 10px;"></div>
                                     <p>Loading map...</p>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Recent Visitors -->
-                    <div class="stats-card full-width performance-optimized">
-                        <h3><i class="fas fa-users"></i> Recent Visitors</h3>
-                        <div class="visitor-list" id="visitorList">
-                            <div style="text-align: center; padding: 40px 20px; color: var(--muted);">
-                                <div class="loading-spinner" style="margin: 0 auto 15px;"></div>
-                                <p>Loading visitor data...</p>
                             </div>
                         </div>
                     </div>
@@ -1528,11 +1385,10 @@
             alert('In a real implementation, this would download your CV. For now, it just shows this message.');
         });
 
-        // Analytics functionality - IMPROVED
+        // Analytics functionality - SIMPLIFIED
         let visitorData = [];
         let analyticsInitialized = false;
         let currentMap = null;
-        let currentChart = null;
 
         // Check if device is mobile
         function isMobileDevice() {
@@ -1564,9 +1420,6 @@
             // Set up performance optimizations
             setupPerformanceOptimizations();
             
-            // Set up control buttons
-            setupAnalyticsControls();
-            
             // Load visitor data
             loadVisitorData();
             
@@ -1574,24 +1427,6 @@
             trackCurrentVisitor();
             
             analyticsInitialized = true;
-        }
-
-        // Set up analytics control buttons
-        function setupAnalyticsControls() {
-            // Time range selector
-            document.querySelectorAll('.time-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    const range = this.getAttribute('data-range');
-                    filterDataByTimeRange(parseInt(range));
-                });
-            });
-            
-            // Refresh analytics
-            document.getElementById('refreshAnalytics').addEventListener('click', function() {
-                refreshAnalyticsDisplay();
-            });
         }
 
         // Load visitor data from localStorage with fallback
@@ -1701,9 +1536,6 @@
             
             // Update visitor map
             updateVisitorMap();
-            
-            // Update visitor list
-            updateVisitorList();
         }
 
         // Update summary statistics
@@ -1842,51 +1674,6 @@
                     });
                 }
             });
-        }
-
-        // Update visitor list
-        function updateVisitorList() {
-            const visitorList = document.getElementById('visitorList');
-            if (!visitorList) return;
-            
-            visitorList.innerHTML = '';
-            
-            if (!visitorData.length) {
-                visitorList.innerHTML = '<div style="text-align: center; padding: 40px 20px; color: var(--muted);"><p>No visitor data yet</p></div>';
-                return;
-            }
-            
-            // Sort visitors by most recent
-            const sortedVisitors = [...visitorData]
-                .sort((a, b) => new Date(b.lastVisit || b.timestamp) - new Date(a.lastVisit || a.timestamp))
-                .slice(0, window.mobileOptimized ? 5 : 8); // Show fewer on mobile
-            
-            sortedVisitors.forEach(visitor => {
-                const visitorItem = document.createElement('div');
-                visitorItem.className = 'visitor-item performance-optimized';
-                
-                const flagUrl = `https://flagcdn.com/w40/${visitor.countryCode?.toLowerCase() || 'us'}.png`;
-                
-                visitorItem.innerHTML = `
-                    <img src="${flagUrl}" class="visitor-flag" alt="${visitor.country || 'Unknown'} flag" loading="lazy">
-                    <div class="visitor-details">
-                        <div class="visitor-country">${visitor.country || 'Unknown'}</div>
-                        <div class="visitor-city">${visitor.city || 'Unknown'}</div>
-                    </div>
-                    <div class="visitor-count">${visitor.visits || 1}</div>
-                `;
-                
-                visitorList.appendChild(visitorItem);
-            });
-        }
-
-        // Filter data by time range
-        function filterDataByTimeRange(days) {
-            // This would filter the data based on the selected time range
-            // For now, we'll just refresh the display with all data
-            // In a real implementation, you would filter the visitorData array
-            console.log(`Filtering data for last ${days} days`);
-            refreshAnalyticsDisplay();
         }
 
         // Track visitor on page load
